@@ -2,4 +2,7 @@
     <string name="app_name">AndroidTestLesson</string>
     <string name="activity_main_textview_title">TextView</string>
     <string name="activity_main_button_click_me">Click me!</string>
+    <string name="first">First</string>
+    <string name="second">Second</string>
+    <string name="three">Three</string>
 </resources>

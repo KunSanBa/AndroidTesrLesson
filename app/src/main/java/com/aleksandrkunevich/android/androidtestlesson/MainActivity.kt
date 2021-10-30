@@ -10,11 +10,38 @@
 package com.aleksandrkunevich.android.androidtestlesson
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        activity_main_button_click_me.setOnClickListener {
+            openRandomFragment()
+        }
+    }
+
+    private fun openRandomFragment() {
+        val fragment = MainFragment()
+        Log.d("TAGfragment", "id = ${fragment.tagStruct}")
+        Log.d("TAGfragment", "text = ${fragment.structure.structureText}")
+        Log.d("TAGfragment", "color = ${fragment.structure.structureTextColor}")
+        Log.d("TAGfragment", "size = ${fragment.structure.structureTextSize}")
+        Log.d("TAGfragment", "layout = ${fragment.layoutRes}")
+        supportFragmentManager
+            .beginTransaction()
+            .addToBackStack(fragment.tagStruct)
+            .add(
+                R.id.activity_main_framelayout_container,
+                fragment
+            )
+            .commit()
     }
 }
