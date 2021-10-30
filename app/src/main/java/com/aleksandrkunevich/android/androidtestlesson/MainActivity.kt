@@ -9,22 +9,4 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
     }
-
-    override fun onStart() {
-        super.onStart()
-
-        btn.setOnClickListener {
-            openFragment()
-        }
-
-    }
-
-    private fun openFragment() {
-        supportFragmentManager
-            .beginTransaction()
-            .addToBackStack(FirstFragment.TAG)
-            .add(R.id.container, FirstFragment.newInstance())
-            .commit()
-    }
-
 }

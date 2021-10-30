@@ -1,6 +1,3 @@
 <resources>
     <string name="app_name">AndroidTesrLesson</string>
-    <string name="activity_main_title">Main Activity</string>
-    <string name="activity_main_button_text">Кликни</string>
-    <string name="fragment_first_text_open">First fragment open</string>
 </resources>
