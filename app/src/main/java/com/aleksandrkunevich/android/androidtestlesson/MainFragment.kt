@@ -24,9 +24,9 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val view = inflater.inflate(layoutRes, container, false)
-        view.fragment_textview.text = structure.structureText
-        view.fragment_textview.setTextColor(structure.structureTextColor)
-        view.fragment_textview.textSize = structure.structureTextSize
+//        view.fragment_textview.text = structure.structureText
+//        view.fragment_textview.setTextColor(structure.structureTextColor)
+//        view.fragment_textview.textSize = structure.structureTextSize
         return view
     }
 }
