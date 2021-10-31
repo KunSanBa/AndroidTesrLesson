@@ -14,6 +14,9 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+
+    private var count = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -23,12 +26,55 @@ class MainActivity : AppCompatActivity() {
         super.onStart()
 
         activity_main_button_click_me.setOnClickListener {
-            openNextFragment()
+            openFragment()
         }
     }
 
-    private fun openNextFragment() {
+    private fun openFragment() {
+        when (count) {
+            0 -> addFirstFragment()
+            1 -> addSecondFragment()
+            2 -> addThirdFragment()
+        }
+        count = (count + 1) % 3
+    }
 
+    private fun addFirstFragment() {
+        if (supportFragmentManager.findFragmentByTag(FragmentThird.TAG) != null) {
+            supportFragmentManager
+                .beginTransaction()
+                .remove(FragmentThird.newInstance())
+                .addToBackStack(FragmentOne.TAG)
+                .add(R.id.activity_main_framelayout_container, FragmentOne.newInstance())
+                .commit()
+        } else {
+            supportFragmentManager
+                .beginTransaction()
+                .addToBackStack(FragmentOne.TAG)
+                .add(R.id.activity_main_framelayout_container, FragmentOne.newInstance())
+                .commit()
+        }
+    }
+
+    private fun addSecondFragment() {
+        supportFragmentManager
+            .beginTransaction()
+            .replace(
+                R.id.activity_main_framelayout_container,
+                FragmentTwo.newInstance(),
+                FragmentTwo.TAG
+            )
+            .commit()
+    }
+
+    private fun addThirdFragment() {
+        supportFragmentManager
+            .beginTransaction()
+            .replace(
+                R.id.activity_main_framelayout_container,
+                FragmentThird.newInstance(),
+                FragmentThird.TAG
+            )
+            .commit()
     }
 }
-
