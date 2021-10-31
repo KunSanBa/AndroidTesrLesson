@@ -5,4 +5,6 @@
     <string name="first">First</string>
     <string name="second">Second</string>
     <string name="three">Three</string>
+    <string name="this_is_fragment_main_xml">This is fragment_main.xml</string>
+    <string name="this_is_fragment_second_xml">This is fragment_second.xml</string>
 </resources>

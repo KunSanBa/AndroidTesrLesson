@@ -14,6 +14,11 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
+private const val NUMBEROFFRAGMENT = 3
+private var countNumberFragment = 0
+private val fragment = listOf(FragmentOne(), FragmentTwo(), FragmentThird())
+private val tag = listOf("0", "1", "2")
+
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,24 +29,49 @@ class MainActivity : AppCompatActivity() {
         super.onStart()
 
         activity_main_button_click_me.setOnClickListener {
-            openRandomFragment()
+            openFragment()
         }
     }
 
-    private fun openRandomFragment() {
-        val fragment = MainFragment()
-        Log.d("TAGfragment", "id = ${fragment.tagStruct}")
-        Log.d("TAGfragment", "text = ${fragment.structure.structureText}")
-        Log.d("TAGfragment", "color = ${fragment.structure.structureTextColor}")
-        Log.d("TAGfragment", "size = ${fragment.structure.structureTextSize}")
-        Log.d("TAGfragment", "layout = ${fragment.layoutRes}")
-        supportFragmentManager
-            .beginTransaction()
-            .addToBackStack(fragment.tagStruct)
-            .add(
-                R.id.activity_main_framelayout_container,
-                fragment
+    private fun openFragment() {
+//        val fragment = MainFragment()
+//        Log.d("TAGfragment", "id = ${fragment.tagStruct}")
+//        Log.d("TAGfragment", "text = ${fragment.structure.structureText}")
+//        Log.d("TAGfragment", "color = ${fragment.structure.structureTextColor}")
+//        Log.d("TAGfragment", "size = ${fragment.structure.structureTextSize}")
+//        Log.d("TAGfragment", "layout = ${fragment.layoutRes}")
+        if (!fragment[countNumberFragment].isAdded
+        ) {
+            supportFragmentManager
+                .beginTransaction()
+                .addToBackStack(tag[countNumberFragment])
+                .add(
+                    R.id.activity_main_framelayout_container,
+                    fragment[countNumberFragment]
+                )
+                .commit()
+            Log.d(
+                "TAGt",
+                "number $countNumberFragment isAdded = ${!fragment[countNumberFragment].isAdded}"
             )
-            .commit()
+        } else {
+            fragment.forEach {
+                if (it.isVisible) {
+                    supportFragmentManager
+                        .beginTransaction()
+                        .hide(it)
+                        .commit()
+                }
+            }
+            supportFragmentManager
+                .beginTransaction()
+                .show(fragment[countNumberFragment])
+                .commit()
+            Log.d(
+                "TAGt",
+                "number $countNumberFragment show"
+            )
+        }
+        countNumberFragment = (countNumberFragment + 1) % NUMBEROFFRAGMENT
     }
 }
