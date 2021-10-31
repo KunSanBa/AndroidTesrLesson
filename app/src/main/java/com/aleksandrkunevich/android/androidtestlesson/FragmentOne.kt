@@ -8,6 +8,12 @@ import androidx.fragment.app.Fragment
 
 class FragmentOne : Fragment() {
 
+    companion object {
+        const val TAG = "One"
+
+        fun newInstance() = FragmentOne()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
