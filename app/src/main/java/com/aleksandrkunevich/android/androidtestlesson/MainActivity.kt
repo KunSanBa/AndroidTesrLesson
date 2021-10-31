@@ -14,8 +14,8 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
-private var countNumberFragment = 0
 private const val NUMBEROFFRAGMENT = 3
+private var countNumberFragment = 0
 private val fragment = listOf(FragmentOne(), FragmentTwo(), FragmentThird())
 private val tag = listOf("0", "1", "2")
 
@@ -40,27 +40,38 @@ class MainActivity : AppCompatActivity() {
 //        Log.d("TAGfragment", "color = ${fragment.structure.structureTextColor}")
 //        Log.d("TAGfragment", "size = ${fragment.structure.structureTextSize}")
 //        Log.d("TAGfragment", "layout = ${fragment.layoutRes}")
-        if (supportFragmentManager
-                .findFragmentByTag(tag[countNumberFragment]) == null
+        if (!fragment[countNumberFragment].isAdded
         ) {
-            Log.d("TAGt", "find0 = ${supportFragmentManager
-                .findFragmentByTag(tag[0])}")
-            Log.d("TAGt", "find1 = ${supportFragmentManager
-                .findFragmentByTag(tag[1])}")
-            Log.d("TAGt", "find2 = ${supportFragmentManager
-                .findFragmentByTag(tag[2])}")
-            Log.d("TAGt", "find = ${supportFragmentManager
-                .findFragmentByTag(tag[countNumberFragment])}")
-            Log.d("TAGt", "tag = ${tag[countNumberFragment]}")
-            Log.d("TAGt", "count = $countNumberFragment")
             supportFragmentManager
                 .beginTransaction()
+                .addToBackStack(tag[countNumberFragment])
                 .add(
                     R.id.activity_main_framelayout_container,
                     fragment[countNumberFragment]
                 )
                 .commit()
-            countNumberFragment = (countNumberFragment + 1) % NUMBEROFFRAGMENT
+            Log.d(
+                "TAGt",
+                "number $countNumberFragment isAdded = ${!fragment[countNumberFragment].isAdded}"
+            )
+        } else {
+            fragment.forEach {
+                if (it.isVisible) {
+                    supportFragmentManager
+                        .beginTransaction()
+                        .hide(it)
+                        .commit()
+                }
+            }
+            supportFragmentManager
+                .beginTransaction()
+                .show(fragment[countNumberFragment])
+                .commit()
+            Log.d(
+                "TAGt",
+                "number $countNumberFragment show"
+            )
         }
+        countNumberFragment = (countNumberFragment + 1) % NUMBEROFFRAGMENT
     }
 }
