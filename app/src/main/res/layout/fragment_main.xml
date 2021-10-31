@@ -3,20 +3,34 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/red"
-    >
+    android:background="@color/red">
 
     <TextView
-        android:id="@+id/fragment_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/purple_500"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:text="@string/this_is_fragment_main_xml"
+        android:textColor="@color/green"
+        android:textSize="26sp"
+        app:layout_constraintBottom_toTopOf="@id/fragment_textview_one"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/fragment_textview_one"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="30sp"
         android:gravity="center"
         android:orientation="vertical"
         android:padding="30sp"
+        android:text="@string/first"
         android:textColor="@color/black"
         android:textSize="100sp"
-        android:text="@string/first"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
