@@ -11,15 +11,18 @@ package com.aleksandrkunevich.android.androidtestlesson
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private var count = 0
+    private var count = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        addFirstFragment()
     }
 
     override fun onStart() {
@@ -32,49 +35,30 @@ class MainActivity : AppCompatActivity() {
 
     private fun openFragment() {
         when (count) {
-            0 -> addFirstFragment()
-            1 -> addSecondFragment()
-            2 -> addThirdFragment()
+            0 -> changeFragment(FragmentOne.newInstance(), FragmentOne.TAG)
+            1 -> changeFragment(FragmentTwo.newInstance(), FragmentTwo.TAG)
+            2 -> changeFragment(FragmentThird.newInstance(), FragmentThird.TAG)
         }
         count = (count + 1) % 3
     }
 
-    private fun addFirstFragment() {
-        if (supportFragmentManager.findFragmentByTag(FragmentThird.TAG) != null) {
-            supportFragmentManager
-                .beginTransaction()
-                .remove(FragmentThird.newInstance())
-                .addToBackStack(FragmentOne.TAG)
-                .add(R.id.activity_main_framelayout_container, FragmentOne.newInstance())
-                .commit()
-        } else {
-            supportFragmentManager
-                .beginTransaction()
-                .addToBackStack(FragmentOne.TAG)
-                .add(R.id.activity_main_framelayout_container, FragmentOne.newInstance())
-                .commit()
-        }
-    }
-
-    private fun addSecondFragment() {
+    private fun changeFragment(fragment: Fragment, tagUse: String) {
         supportFragmentManager
             .beginTransaction()
+            .addToBackStack(tagUse)
             .replace(
                 R.id.activity_main_framelayout_container,
-                FragmentTwo.newInstance(),
-                FragmentTwo.TAG
+                fragment,
+                tagUse
             )
             .commit()
     }
 
-    private fun addThirdFragment() {
+    private fun addFirstFragment() {
         supportFragmentManager
             .beginTransaction()
-            .replace(
-                R.id.activity_main_framelayout_container,
-                FragmentThird.newInstance(),
-                FragmentThird.TAG
-            )
+            .addToBackStack(FragmentOne.TAG)
+            .add(R.id.activity_main_framelayout_container, FragmentOne.newInstance())
             .commit()
     }
 }
