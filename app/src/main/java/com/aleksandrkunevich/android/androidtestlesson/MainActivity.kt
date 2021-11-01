@@ -16,13 +16,11 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private var count = 1
+    private var count = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        addFirstFragment()
     }
 
     override fun onStart() {
@@ -51,14 +49,6 @@ class MainActivity : AppCompatActivity() {
                 fragment,
                 tagUse
             )
-            .commit()
-    }
-
-    private fun addFirstFragment() {
-        supportFragmentManager
-            .beginTransaction()
-            .addToBackStack(FragmentOne.TAG)
-            .add(R.id.activity_main_framelayout_container, FragmentOne.newInstance())
             .commit()
     }
 }
